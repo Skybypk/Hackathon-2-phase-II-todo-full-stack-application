@@ -1,0 +1,31 @@
+{
+  "projectName": "Todo App - Hackathon II",
+  "version": "1.0.0",
+  "phase": "Phase II: Todo Full-Stack Web Application",
+  "techStack": {
+    "frontend": "Next.js 16+, TypeScript, Tailwind CSS",
+    "backend": "Python FastAPI",
+    "orm": "SQLModel",
+    "database": "Neon Serverless PostgreSQL",
+    "authentication": "Better Auth",
+    "specDriven": "Claude Code + Spec-Kit Plus"
+  },
+  "apiEndpoints": [
+    "GET /api/{user_id}/tasks",
+    "POST /api/{user_id}/tasks",
+    "GET /api/{user_id}/tasks/{id}",
+    "PUT /api/{user_id}/tasks/{id}",
+    "DELETE /api/{user_id}/tasks/{id}",
+    "PATCH /api/{user_id}/tasks/{id}/complete"
+  ],
+  "features": [
+    "Task CRUD operations",
+    "User authentication",
+    "Responsive UI",
+    "Real-time task synchronization"
+  ],
+  "spec-kit.specsDirectory": "specs",
+  "spec-kit.enableCompletions": true,
+  "spec-kit.autoRefresh": true,
+  "claude.code.workspaceInstructionsPath": "CLAUDE.md"
+}
