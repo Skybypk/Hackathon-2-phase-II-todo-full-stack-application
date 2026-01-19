@@ -88,11 +88,26 @@ export default function Home() {
   };
 
   const handleLogout = async () => {
-    await authClient.signOut();
-    // Also clear the localStorage token
-    localStorage.removeItem('access_token');
-    setUser(null);
-    window.location.reload();
+    try {
+      // Attempt to sign out using Better Auth client
+      await authClient.signOut();
+
+      // Also clear the localStorage token
+      localStorage.removeItem('access_token');
+
+      // Clear user state
+      setUser(null);
+
+      // Redirect to home page to ensure clean state
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Error during logout:', error);
+
+      // Even if the auth client signout fails, ensure we clear local state
+      localStorage.removeItem('access_token');
+      setUser(null);
+      window.location.href = '/';
+    }
   };
 
   const handleCreateTask = async (e: React.FormEvent) => {
