@@ -21,7 +21,13 @@ app = FastAPI(title="Todo API", version="1.0.0")
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",      # Local development
+        "http://localhost:3001",      # Alternative local dev
+        "http://localhost:3002",      # Another local dev option
+        "https://*.vercel.app",       # Vercel deployments
+        "https://*.vercel.com"        # Alternative Vercel domain
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
