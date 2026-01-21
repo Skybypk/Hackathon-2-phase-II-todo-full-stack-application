@@ -10,5 +10,5 @@ alembic==1.13.1
 asyncpg==0.29.0
 neon
 python-dotenv==1.0.0
-better-auth
+better-auth==0.0.1b11
 psycopg2-binary==2.9.9

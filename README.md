@@ -74,6 +74,11 @@ This project follows a **monorepo** architecture separating concerns between fro
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## Deployment
+
+- [Standard Deployment](DEPLOYMENT.md) - Traditional deployment to Render.com
+- [Docker Deployment](DOCKER-RENDER.md) - Docker-based deployment to Render.com
+
 ## Built With
 
 Made with passion during the Hackathon Phase II challenge!
