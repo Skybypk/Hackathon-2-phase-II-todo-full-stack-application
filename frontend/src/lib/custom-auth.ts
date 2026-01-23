@@ -1,6 +1,5 @@
 import { UserRegister, UserLogin, Token, UserResponse } from '../types/auth';
 
-// Define possible API base URLs to try
 const API_BASE_URLS = [
   process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000',
   'http://localhost:8000',

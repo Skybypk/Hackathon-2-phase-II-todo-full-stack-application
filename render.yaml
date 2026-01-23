@@ -1,0 +1,46 @@
+# Docker Compose deployment for Render
+# This approach uses Dockerfiles to build and deploy the application
+
+services:
+  # Python Backend Service - Docker Deployment
+  - type: web
+    name: todo-backend
+    env: docker
+    region: oregon
+    dockerfilePath: ./backend/Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: todo-db
+          property: connectionString
+      - key: BETTER_AUTH_SECRET
+        generateValue: true
+      - key: PORT
+        value: 10000
+    autoDeploy: true
+
+  # Node.js Frontend Service - Docker Deployment
+  - type: web
+    name: todo-frontend
+    env: docker
+    region: oregon
+    dockerfilePath: ./frontend/Dockerfile
+    envVars:
+      - key: NEXT_PUBLIC_API_BASE_URL
+        fromService:
+          type: web
+          name: todo-backend
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: NEXT_PUBLIC_BETTER_AUTH_URL
+        fromService:
+          type: web
+          name: todo-backend
+          envVarKey: RENDER_EXTERNAL_URL
+    autoDeploy: true
+
+databases:
+  - name: todo-db
+    databaseName: todo_db
+    user: todo_user
+    region: oregon
+    plan: free
