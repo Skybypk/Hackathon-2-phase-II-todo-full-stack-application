@@ -1,6 +1,6 @@
-# Hackathon-2-phse-II-todo-full-stack-application
+# Hackathon-2-phase-II-todo-full-stack-application
 
-Full stack web application
+Todo full stack web application
 
 A comprehensive full-stack todo application built with modern technologies
 
