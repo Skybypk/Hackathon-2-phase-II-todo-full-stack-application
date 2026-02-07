@@ -141,7 +141,7 @@ def update_task(
     for field, value in update_data.items():
         setattr(task, field, value)
 
-    task.updated_at = datetime.utcnow()
+    task.updated_at = datetime.now()
     session.add(task)
     session.commit()
     session.refresh(task)
@@ -225,11 +225,11 @@ def complete_task(
         )
 
     task.completed = task_complete.completed
-    task.updated_at = datetime.utcnow()
+    task.updated_at = datetime.now()
 
     # Set completed_at based on completion status
     if task.completed and task.completed_at is None:
-        task.completed_at = datetime.utcnow()
+        task.completed_at = datetime.now()
     elif not task.completed:
         task.completed_at = None
 

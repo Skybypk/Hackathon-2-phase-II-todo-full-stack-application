@@ -2,7 +2,7 @@
 echo Starting the backend server...
 
 REM Change to the backend directory
-cd /d "E:\h-2\backend"
+cd /d "%~dp0backend"
 
 echo Checking if virtual environment exists...
 IF NOT EXIST "venv" (

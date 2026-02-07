@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:password@localhost:5432/todo_db")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./todo_app.db")
 
 # Create engine with connection pooling for production use
 engine = create_engine(

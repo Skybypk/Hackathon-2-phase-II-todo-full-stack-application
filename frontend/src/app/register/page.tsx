@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { customAuth } from '../../lib/custom-auth';
 
 export default function RegisterPage() {
@@ -13,6 +14,16 @@ export default function RegisterPage() {
   const [success, setSuccess] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Clear any sensitive query parameters from the URL on load
+  useEffect(() => {
+    // Check if there are sensitive params in the URL and clear them
+    if (searchParams.has('email') || searchParams.has('password') || searchParams.has('confirmPassword')) {
+      // Replace the current URL without the sensitive parameters
+      router.replace('/register', undefined, { shallow: true });
+    }
+  }, [searchParams, router]);
 
   // Update password validation when password changes
   useEffect(() => {

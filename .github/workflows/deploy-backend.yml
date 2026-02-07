@@ -1,0 +1,37 @@
+name: Deploy Backend to Render
+on:
+  push:
+    branches: [main]
+    paths:
+      - "backend/**"
+  workflow_dispatch:
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          
+      - name: Install Dependencies
+        working-directory: ./backend
+        run: |
+          pip install -r requirements.txt
+          pip install uvicorn[standard]
+          
+      - name: Test Backend Locally
+        working-directory: ./backend
+        run: |
+          python -c "from main import app; print('FastAPI app loaded successfully')"
+          
+      - name: Deploy to Render
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.RENDER_BACKEND_SERVICE_ID }}
+          api-key: ${{ secrets.RENDER_API_KEY }}
+ 

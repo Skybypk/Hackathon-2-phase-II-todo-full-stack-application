@@ -9,7 +9,7 @@ services:
       - "8000:8000"
     environment:
       - DATABASE_URL=postgresql://user:password@db:5432/todo_db
-      - BETTER_AUTH_SECRET=your-super-secret-jwt-key-here
+      - BETTER_AUTH_SECRET=kxTYvjvcwC9axesz89FL83R8eUhHyqjT
     depends_on:
       - db
     env_file:

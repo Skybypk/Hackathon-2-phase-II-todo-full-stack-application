@@ -8,7 +8,7 @@ echo =============================================
 echo.
 
 REM Start backend in a new command window
-start "Backend Server" cmd /k "cd /d E:\h-2\backend && call venv\Scripts\activate.bat && python main.py"
+start "Backend Server" cmd /k "cd /d %~dp0backend && call venv\Scripts\activate.bat && python main.py"
 
 timeout /t 5 /nobreak >nul
 
@@ -19,7 +19,7 @@ echo =============================================
 echo.
 
 REM Start frontend in another command window
-start "Frontend Server" cmd /k "cd /d E:\h-2\frontend && npm run dev"
+start "Frontend Server" cmd /k "cd /d %~dp0frontend && npm run dev"
 
 echo.
 echo Both servers are starting...

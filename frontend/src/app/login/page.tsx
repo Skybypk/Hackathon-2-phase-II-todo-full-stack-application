@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { customAuth } from '../../lib/custom-auth';
 
 export default function LoginPage() {
@@ -10,6 +11,16 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Clear any sensitive query parameters from the URL on load
+  useEffect(() => {
+    // Check if there are sensitive params in the URL and clear them
+    if (searchParams.has('email') || searchParams.has('password')) {
+      // Replace the current URL without the sensitive parameters
+      router.replace('/login', undefined, { shallow: true });
+    }
+  }, [searchParams, router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,13 +28,20 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
+      console.log('Attempting to login with email:', email);
+
       const response = await customAuth.login({
         email,
         password,
       });
 
+      console.log('Login successful, received response:', response);
+
       // Store token in localStorage (used by api-client.ts)
-      localStorage.setItem('access_token', response.access_token);
+      if (response.access_token) {
+        localStorage.setItem('access_token', response.access_token);
+        console.log('Token stored in localStorage');
+      }
 
       // The response contains user data and token - we can use this to update the auth state
       // For now, just redirect to home where the session will be checked
@@ -31,7 +49,15 @@ export default function LoginPage() {
       router.refresh();
     } catch (err: any) {
       console.error('Login error:', err);
-      setError(err.message || 'An unexpected error occurred');
+      let errorMessage = 'An unexpected error occurred';
+
+      if (err.message) {
+        errorMessage = err.message;
+      } else if (err instanceof Error) {
+        errorMessage = err.toString();
+      }
+
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

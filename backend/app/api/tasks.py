@@ -71,7 +71,7 @@ def update_task(task_id: UUID, task_update: TaskUpdate, current_user_id: str = D
 
         # Update timestamps
         from datetime import datetime
-        task.updated_at = datetime.utcnow()  # Update to current time
+        task.updated_at = datetime.now()  # Update to current time
 
         # Handle completion timestamp
         if hasattr(task_update, 'completed') and task_update.completed is not None:
@@ -101,7 +101,7 @@ def toggle_task_completion(task_id: UUID, completed: bool, current_user_id: str 
         # Update completion status
         task.completed = completed
         from datetime import datetime
-        task.updated_at = datetime.utcnow()  # Update to current time
+        task.updated_at = datetime.now()  # Update to current time
 
         # Set completion timestamp
         if completed:

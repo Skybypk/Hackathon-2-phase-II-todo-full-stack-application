@@ -4,6 +4,11 @@ from typing import Optional
 import uuid
 
 
+def get_current_time():
+    """Custom function to get current datetime for SQLModel field factories."""
+    return datetime.now()
+
+
 class TaskBase(SQLModel):
     title: str = Field(max_length=255)
     description: Optional[str] = Field(default=None)
@@ -15,8 +20,8 @@ class Task(TaskBase, table=True):
 
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     user_id: uuid.UUID = Field(foreign_key="users.id", nullable=False)
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=get_current_time)
+    updated_at: datetime = Field(default_factory=get_current_time)
     completed_at: Optional[datetime] = Field(default=None)
 
 
