@@ -1,19 +1,33 @@
-# Fix the typo in vercel.yml
-
+# .github/workflows/vercel.yml
 name: Deploy to Vercel
 on:
   push:
     branches: [main]
-    paths:
-      - "backend/**"
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: amondnet/vercel-action@v25
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-args: '--prod'
- 
+          node-version: '18'
+          
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+        
+      - name: Debug Info
+        run: |
+          echo "GitHub SHA: ${{ github.sha }}"
+          echo "Repo: ${{ github.repository }}"
+          echo "Token exists: ${{ secrets.VERCEL_TOKEN != '' }}"
+          
+      - name: Deploy to Vercel
+        run: |
+          vercel --token ${{ secrets.VERCEL_TOKEN }} --prod --confirm
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} 
