@@ -1,6 +1,6 @@
 import sys
 import traceback
-from main import app
+from app import app
 import uvicorn
 
 print('Attempting to start server...')

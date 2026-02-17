@@ -21,7 +21,7 @@ try:
     print('DB modules imported successfully')
     
     print('Importing main app...')
-    from main import app
+    from app import app
     print('Main app imported successfully')
     
     print('Ensuring database tables exist...')

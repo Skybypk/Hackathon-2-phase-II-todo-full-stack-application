@@ -15,7 +15,7 @@ with open(log_file, "w") as f:
 with open(log_file, "a") as f:
     try:
         f.write("Attempting to import main app...\n")
-        from main import app
+        from app import app
         f.write("Successfully imported main app\n")
         
         f.write("Attempting to import uvicorn...\n")
